@@ -27,11 +27,16 @@ export default async function Page({ params }) {
     console.log('API Response:', responseData); // Debug: Log the full response
 
     const { job = {}, candidates = [] } = responseData || {};
-    console.log('Job data:', job); // Debug: Log the job data
-
+    console.log('Job last date:', job.last_date); // Debug: Log the job data
+    const last_date = job.last_date;
+    const date = new Date(last_date);
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const job_last_date = `${day}-${month}-${year}`;
     return (
       <Layout>
-        <JobDetails job={job} candidates={candidates} />
+        <JobDetails job={job} candidates={candidates} job_last_date={job_last_date} />
       </Layout>
     );
   } catch (error) {
